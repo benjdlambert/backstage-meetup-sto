@@ -23,6 +23,11 @@ spec:
           ui:autofocus: true
           ui:options:
             rows: 5
+        cluster:
+          title: Cluster
+          description: Pick a cluster
+          type: string
+          ui:field: ClusterPickerFieldExtension
     - title: Choose a location
       required:
         - repoUrl
@@ -46,6 +51,7 @@ spec:
         url: ./content
         values:
           name: ${{ parameters.name }}
+          cluster: ${{ parameters.cluster }}
 
     # This step publishes the contents of the working directory to GitHub.
     - id: publish
@@ -63,6 +69,10 @@ spec:
       input:
         repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
         catalogInfoPath: '/catalog-info.yaml'
+
+    - id: setup-dashboard
+      name: Create Dashboard
+      action: grafana:dashboard:create
 
   # Outputs are displayed to the user after a successful execution of the template.
   output:

@@ -1,5 +1,4 @@
 import React from 'react';
-import {} from '@backstage/plugin-scaffolder-react';
 import {
   ScaffolderField,
   createNextScaffolderFieldExtension,
