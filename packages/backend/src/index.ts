@@ -94,6 +94,17 @@ async function main() {
   apiRouter.use('/proxy', await proxy(proxyEnv));
   apiRouter.use('/search', await search(searchEnv));
 
+  apiRouter.use('/clusters/list', (_, res) => {
+    res.json({
+      clusters: [
+        { id: 'local', name: 'Local' },
+        { id: 'ip-10-0-129-209.eu-west-1.compute.internal', name: 'EKS' },
+        { id: 'ip-10-0-129-209.eu-west-1.compute.internal', name: 'GKE' },
+        { id: 'ip-10-0-129-209.eu-west-1.compute.internal', name: 'AKS' },
+      ],
+    });
+  });
+
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
 
